@@ -1,0 +1,44 @@
+﻿@page "/tinymceDemo"
+
+<MudItem>
+    <MudItem xs="2">
+        <MudIconButton Icon="@Icons.Filled.Add" OnClick="@(args => AddSection())" Color="Color.Error" />
+    </MudItem>
+</MudItem>
+
+@if (Sections is null)
+{
+    <MudText Typo="Typo.h4">Loading ...</MudText>
+}
+else
+{
+    <MudExpansionPanels MultiExpansion="false" Class="mb-8">
+        @if (Sections.Count == 0)
+        {
+            <MudText Typo="Typo.body1">No Sections</MudText>
+        }
+        else
+        {
+            foreach (SectionDemo sectionDemo in Sections)
+            {
+                <MudExpansionPanel>
+                    <TitleContent>
+                        <div class="d-flex justify-space-between">
+                            <MudItem Class="mr-4">
+                                <MudText Typo="Typo.body1">
+                                    @sectionDemo.Name
+                                </MudText>
+                            </MudItem>
+                            <MudItem xs="2">
+                                <MudIconButton Icon="@Icons.Filled.Delete" OnClick="@(args => RemoveSection(@sectionDemo.Id))" Color="Color.Error" />
+                            </MudItem>
+                        </div>
+                    </TitleContent>
+                    <ChildContent>
+                        <TextEditorComponent @bind-Value="sectionDemo.Content" DebounceInterval="1200" OnDebounceIntervalElapsed=@(() => DoSomething(@sectionDemo)) />
+                    </ChildContent>
+                </MudExpansionPanel>
+            }
+        }
+    </MudExpansionPanels>
+}

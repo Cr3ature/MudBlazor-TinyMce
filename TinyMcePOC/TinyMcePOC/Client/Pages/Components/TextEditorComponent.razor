@@ -1,0 +1,13 @@
+﻿@inherits MudDebouncedInput<string>
+
+<MudInputControl Label="@Label" Variant="@Variant" HelperText="@HelperText" FullWidth="@FullWidth" Error="@HasErrors" ErrorText="@GetErrorText()" Disabled="@Disabled" Margin="@Margin" Required="@Required">
+    <InputContent>
+        <div id="@_identifier" class="max-height:90vh;overflow-y: scroll;">
+            <Editor ApiKey="@_apiKey"
+                    Conf="_editorConf"
+                    @bind-Value="@Value"
+                    CloudChannel="5-dev"
+                    Inline=@Inline />
+        </div>
+    </InputContent>
+</MudInputControl>
